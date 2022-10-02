@@ -28,7 +28,7 @@ contract Staking {
         currentPositionId = 0;
 
         //interest rates for each period
-        tiers[30] = 70;
+        tiers[30] = 700;
         tiers[90] = 1000;
         tiers[180] = 1200;
 
