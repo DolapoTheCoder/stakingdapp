@@ -1,23 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import react, {useState, useEffect} from 'react';
+import {ethers} from 'ethers';
+import { artifacts } from './artifacts/contracts/Staking.sol/Staking.json';
+
+const CONTRACT_ADDRESS = '0x0165878A594ca255338adfa4d48449f69242Eb8F';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
     </div>
   );
 }
