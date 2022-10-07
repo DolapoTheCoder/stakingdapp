@@ -81,7 +81,7 @@ contract Staking {
         return tiers[numDays];
     }
 
-    function getPositionId(uint256 positionId)
+    function getPositionById(uint256 positionId)
         external
         view
         returns (Position memory)
@@ -89,7 +89,7 @@ contract Staking {
         return positions[positionId];
     }
 
-    function getPositionIdForAddress(address walletAddress)
+    function getPositionIdsForAddress(address walletAddress)
         external
         view
         returns (uint256[] memory)
