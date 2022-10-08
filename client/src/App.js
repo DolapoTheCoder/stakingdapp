@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
 import artifact from './artifacts/contracts/Staking.sol/Staking.json';
 import NavBar from './components/NavBar';
+import StakeTab from './components/StakeTab';
+import StakeTable from './components/StakeTable';
 import {Bank, PiggyBank, Coin} from 'react-bootstrap-icons'
 
 const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
@@ -29,7 +31,6 @@ function App() {
   const toString = bytes32 => ethers.utils.parseBytes32String(bytes32)
   const toWei = ether => ethers.utils.parseEther(ether)
   const toEther = wei => ethers.utils.formatEther(wei)
-
 
   useEffect(() => {
     const onLoad = async () => {
@@ -116,6 +117,7 @@ function App() {
   }
 
   return (
+
     <div className="App">
       <div>
         <NavBar
@@ -124,33 +126,125 @@ function App() {
         />
       </div>
 
-      <div className='appBody'>
-        <div className='marketContainer'>
-          <div className='subContainer'>
+      <div className="appBody">
+        <div className="marketContainer">
+          <div className="subContainer">
             <span>
-              <img className='logoImg' src='eth-logo.webp'/>
+              <img className="logoImg" src="eth-logo.webp"/>
             </span>
-            <span className='marketHeader'>Ethereum Market</span>
+            <span className="marketHeader">Ethereum Market</span>
           </div>
 
-          <div className='row'>
-            <div className='col-md-4'>
-              <div onClick={() => openStakingModel(30, '7%')} className='marketOption'>
-                <div className='glyphContainer hoverButton'>
-                  <span className='glyph'>
+          <div className="row">
+            <div className="col-md-4">
+              <div onClick={() => openStakingModel(30, '7%')} className="marketOption">
+                <div className="glyphContainer hoverButton">
+                  <span className="glyph">
                     <Coin />
                   </span>
                 </div>
-                <div>
-                  <span className='optionData'>1 Month</span>
-                  <span className='optionPercent'>7%</span>
+                <div className="optionData">
+                  <span>1 Month</span>
+                  <span className="optionPercent">7%</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div onClick={() => openStakingModel(90, '10%')} className="marketOption">
+                <div className="glyphContainer hoverButton">
+                  <span className="glyph">
+                    <Coin />
+                  </span>
+                </div>
+                <div className="optionData">
+                  <span>3 Months</span>
+                  <span className="optionPercent">10%</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              <div onClick={() => openStakingModel(180, '12%')} className="marketOption">
+                <div className="glyphContainer hoverButton">
+                  <span className="glyph">
+                    <Coin />
+                  </span>
+                </div>
+                <div className="optionData">
+                  <span>6 Months</span>
+                  <span className="optionPercent">12%</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div className="assetContainer">
+          <div className="subContainer">
+            <span className="marketHeader">Staked Assets</span>
+          </div>
+          <div>
+            <div className="row columnHeaders">
+              <div className="col-md-2">Assets</div>
+              <div className="col-md-2">Percent Interest</div>
+              <div className="col-md-2">Staked</div>
+              <div className="col-md-2">Interest</div>
+              <div className="col-md-2">Days Remaining</div>
+              <div className="col-md-2"></div>
+            </div>
+          </div>
+          <br />
+          {assets.length > 0 && assets.map((a, idx) => (
+            <div className="row">
+              <div className="col-md-2">
+                <span>
+                  <img className="stakedLogoImg" src="eth-logo.webp" />
+                </span>
+              </div>
+              <div className="col-md-2">
+                {a.percentInterest} %
+              </div>
+              <div className="col-md-2">
+                {a.etherStaked}
+              </div>
+              <div className="col-md-2">
+                {a.etherInterest}
+              </div>
+              <div className="col-md-2">
+                {a.daysRemaining}
+              </div>
+              <div className="col-md-2">
+                {a.open ? (
+                  <div onClick={() => withdraw(a.positionId)} className="orangeMiniButton">Withdraw</div>
+                ) : (
+                  <span>closed</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+
+    // <div className="App">
+    //   <div>
+    //     <NavBar
+    //       isConnected={isConnected}
+    //       connect={connectAndLoad}
+    //     />
+    //   </div>
+    //   <StakeTab
+    //     openStakingModel = {openStakingModel}
+    //   />
+    //   <StakeTable
+    //     assets = {assets}
+    //   />
+
+    //   <div className='appBody'>
+
+    //   </div>
+    // </div>
   );
 }
 
